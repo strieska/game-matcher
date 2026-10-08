@@ -1,6 +1,13 @@
 @game_matcher_HostAddress = http://localhost:5171
 
-GET {{game_matcher_HostAddress}}/weatherforecast/
+### Public roster and ratings
+GET {{game_matcher_HostAddress}}/api/players
 Accept: application/json
 
-###
+### Public games, teams and results
+GET {{game_matcher_HostAddress}}/api/events/history
+Accept: application/json
+
+### Session and anti-forgery token (use the browser frontend for organizer writes)
+GET {{game_matcher_HostAddress}}/api/auth/session
+Accept: application/json

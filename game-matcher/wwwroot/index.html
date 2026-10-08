@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111118">
+  <meta name="description" content="Balanced teams. Better games. Your weekly game, organized.">
+  <title>Game Matcher</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"></div>
+  <header class="header">
+    <a class="brand" href="#games"><span class="brand-icon" aria-hidden="true">GM</span><span>Game Matcher<small>BETTER TOGETHER</small></span></a>
+    <button id="session-button" class="button subtle" type="button">Organizer sign in</button>
+  </header>
+  <main>
+    <section class="intro">
+      <span class="eyebrow">YOUR WEEKLY GAME, ORGANIZED</span>
+      <h1>Balanced teams.<br><span>Better games.</span></h1>
+      <p>Pick your players. Find the balance. Let the game do the talking.</p>
+    </section>
+    <nav class="tabs" aria-label="Main navigation">
+      <button type="button" data-tab="games" class="active" aria-current="page">Games</button>
+      <button type="button" data-tab="players">Players</button>
+      <button type="button" data-tab="history">History</button>
+    </nav>
+    <div id="notice" role="status" aria-live="polite" hidden></div>
+    <section id="content" aria-label="Games" aria-busy="true"><div class="empty">Loading your games...</div></section>
+  </main>
+  <footer>Game Matcher <span>Small teams. Great games.</span></footer>
+
+  <dialog id="login-dialog">
+    <form id="login-form">
+      <div class="section-heading"><h2>Organizer access</h2><button type="button" class="button subtle" data-close="login-dialog">Close</button></div>
+      <p class="muted">Everyone can watch. Only the organizer can make changes.</p>
+      <label>Organizer password<input name="password" type="password" autocomplete="current-password" required maxlength="256"></label>
+      <p id="login-error" class="error" role="alert" hidden></p>
+      <button class="button primary" type="submit">Sign in</button>
+    </form>
+  </dialog>
+
+  <dialog id="player-dialog">
+    <form id="player-form">
+      <div class="section-heading"><h2 id="player-title">New player</h2><button type="button" class="button subtle" data-close="player-dialog">Close</button></div>
+      <label>First name or nickname<input name="name" autocomplete="given-name" required maxlength="80"></label>
+      <label>Last name <span class="muted">(optional)</span><input name="surname" autocomplete="family-name" maxlength="80"></label>
+      <label class="check-label"><input name="isGoalkeeper" type="checkbox"> Dedicated goalkeeper</label>
+      <p class="muted">New players start at 1500 Elo. Ratings are earned on the pitch, not edited here.</p>
+      <p id="player-error" class="error" role="alert" hidden></p>
+      <button class="button primary" type="submit">Save player</button>
+    </form>
+  </dialog>
+
+  <dialog id="confirm-dialog">
+    <form method="dialog">
+      <h2 id="confirm-title">Confirm action</h2>
+      <p id="confirm-message" class="muted"></p>
+      <div class="actions"><button class="button subtle" value="cancel">Go back</button><button class="button primary" id="confirm-submit" value="confirm">Confirm</button></div>
+    </form>
+  </dialog>
+</body>
+</html>
