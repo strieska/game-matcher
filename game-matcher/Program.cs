@@ -1,5 +1,4 @@
 using GameMatcher.Data;
-using GameMatcher.GameService;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,12 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<GameMatcher.Services.GameMatcherService>();
 
 // Add in-memory EF Core DB
-builder.Services.AddDbContext<AppDbContext>(opt => 
-    opt.UseInMemoryDatabase("PlayerGameDb"));
-
-builder.Services.AddScoped<IGameService, GameService>();
+var connectionString = builder.Configuration.GetConnectionString("GameMatcher")
+    ?? "Data Source=game-matcher.db";
+builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlite(connectionString));
 
 
 var app = builder.Build();
@@ -22,7 +21,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    DbInitializer.Seed(db);
+    db.Database.EnsureCreated();
 }
 
 // Middleware
